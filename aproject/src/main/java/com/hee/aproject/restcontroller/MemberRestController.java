@@ -27,6 +27,7 @@ public class MemberRestController {
 	public void memberJoin(@RequestBody MemberDto memberDto) {
 		
 		memberDao.memberJoin(memberDto);
+		log.debug("dto={}",memberDto);
 		
 		
 	}
