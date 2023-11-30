@@ -16,6 +16,7 @@ public class MemberDto {
 	private String memberConnect;
 	private String memberJoin;
 	private String memberBirth;
+	private String memberNick;
 	
 
 }

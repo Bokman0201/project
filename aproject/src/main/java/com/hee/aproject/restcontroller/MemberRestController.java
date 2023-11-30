@@ -1,7 +1,10 @@
 package com.hee.aproject.restcontroller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +29,15 @@ public class MemberRestController {
 	@PostMapping("/add/")
 	public void memberJoin(@RequestBody MemberDto memberDto) {
 		
-		memberDao.memberJoin(memberDto);
-		log.debug("dto={}",memberDto);
+		log.debug("dto={}",memberDto.getMemberName());
 		
+		memberDao.memberJoin(memberDto);
+		
+		
+	}
+	@GetMapping()
+	public List<MemberDto> overlapEmail(){
+		return memberDao.overlapEmail();
 		
 	}
 
