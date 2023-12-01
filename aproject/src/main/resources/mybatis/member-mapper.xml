@@ -8,14 +8,18 @@
 <mapper namespace="member">
 
 	<insert id="memberJoin">
-		insert into member(member_no, member_name,
+		insert into member( member_name,
 		member_birth, member_email,member_pw, member_connect)
-		values(member_seq.nextval, #{memberName}, #{memberBirth},
+		values( #{memberName}, #{memberBirth},
 		#{memberEmail}, #{memberPw}, #{memberConnect})
 	</insert>
 	
 	<select id="overlapEmail" resultType="memberDto">
 		select member_email, member_connect from member
+	</select>
+	
+	<select id="memberList" resultType="memberDto">
+		select * from member
 	</select>
 
 </mapper>

@@ -24,4 +24,10 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("member.overlapEmail");
 	}
+	
+	@Override
+	public List<MemberDto> memberList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.memberList");
+	}
 }

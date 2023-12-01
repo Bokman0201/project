@@ -40,5 +40,10 @@ public class MemberRestController {
 		return memberDao.overlapEmail();
 		
 	}
+	
+	@GetMapping("/list/")
+	public List<MemberDto> memberList(){
+		return memberDao.memberList();
+	}
 
 }

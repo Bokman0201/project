@@ -10,4 +10,6 @@ public interface MemberDao {
 
 	List<MemberDto> overlapEmail();
 
+	List<MemberDto> memberList();
+
 }

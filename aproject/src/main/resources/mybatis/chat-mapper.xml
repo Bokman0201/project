@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="chat">
+
+	<select id="sequence" resultType="int">
+		select chat_room_seq.nextval
+		from dual
+	</select>
+
+	<insert id="sendMessage">
+		insert into chat_message(
+		chat_message_no,
+		chat_room_no,
+		chat_message_sender,
+		chat_message_content
+		)
+		values(
+		chat_message_seq.nextval,
+		#{chatRoomNo},
+		#{chatMessageSender},
+		#{chatMessageContent}
+		)
+	</insert>
+
+
+	<insert id="createRoom">
+		insert into chat_room(chat_room_no,chat_room_name)
+		values(#{chatRoomNo},#{chatRoomName})
+
+	</insert>
+
+	<insert id="addMember">
+		insert into chat_group(chat_group_member,chat_room_no)
+		values(#{chatGroupMember},#{chatRoomNo})
+	</insert>
+
+	<select id="roomList" resultType="chatgroupDto">
+		select chat_room_no, chat_group_member from chat_group where
+		chat_group_member=#{chatGroupMember} group by chat_room_no ,
+		chat_group_member 
+	</select>
+
+</mapper>
