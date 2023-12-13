@@ -12,4 +12,6 @@ public interface MemberDao {
 
 	List<MemberDto> memberList();
 
+	MemberDto find(String memberEmail);
+
 }

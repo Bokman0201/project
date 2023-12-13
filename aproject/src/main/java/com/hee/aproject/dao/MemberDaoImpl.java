@@ -18,10 +18,12 @@ public class MemberDaoImpl implements MemberDao {
 	public void memberJoin(MemberDto memberDto) {
 		System.out.println(memberDto.getMemberName());
 		sqlSession.insert("member.memberJoin",memberDto);
+		
 	}
 	@Override
 	public List<MemberDto> overlapEmail() {
 		// TODO Auto-generated method stub
+		
 		return sqlSession.selectList("member.overlapEmail");
 	}
 	
@@ -29,5 +31,10 @@ public class MemberDaoImpl implements MemberDao {
 	public List<MemberDto> memberList() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("member.memberList");
+	}
+	@Override
+	public MemberDto find(String memberEmail) {
+		return sqlSession.selectOne(memberEmail);
+		
 	}
 }

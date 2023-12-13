@@ -85,6 +85,7 @@ public class WebSocketServer extends TextWebSocketHandler {
 		        Iterator<ClientVO> iterator = room.iterator();
 		        while (iterator.hasNext()) {
 		            ClientVO clientInRoom = iterator.next();
+		            
 		            if (clientInRoom.getMemberEmail().equals(memberEmail)) {
 		                iterator.remove();
 		                log.debug("Client {} removed from room", memberEmail);
