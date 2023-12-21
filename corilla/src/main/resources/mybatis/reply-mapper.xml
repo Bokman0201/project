@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reply">
+<insert id="writeReply">
+	insert into reply(reply_no,reply_writer,board_no,reply_content) values(reply_seq.nextval,#{replyWriter},#{boardNo},#{replyContent})
+</insert>
+<select id="replyList" resultType="replyDto">
+	select * from reply where board_no = #{boardNo} order by reply_no desc
+</select>
+
+</mapper>
