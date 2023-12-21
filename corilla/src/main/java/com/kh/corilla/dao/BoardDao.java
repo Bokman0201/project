@@ -16,4 +16,12 @@ public interface BoardDao {
 
 	void likeUp(int boardNo);
 
+	List<BoardDto> listByMember(String memberId);
+
+	BoardDto selectOne(int boardNo);
+
+	void updateBoard(int boardNo, BoardDto boardDto);
+
+	void delete(int boardNo);
+
 }

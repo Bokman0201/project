@@ -19,8 +19,10 @@ public class BoardImageDaoImpl implements BoardImageDao{
 	}
 	@Override
 	public List<AttachDto> findImage(int boardNo) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList("image.findImage", boardNo);
 	}
-
+	@Override
+	public List<BoardImageDto> listByMember(String memberId) {
+		return sqlSession.selectList("image.listByMember",memberId);
+	}
 }

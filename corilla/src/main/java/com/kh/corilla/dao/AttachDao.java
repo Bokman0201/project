@@ -13,4 +13,11 @@ public interface AttachDao {
 
 	List<AttachVO> imageList();
 
+
+	void delete(int attachNo);
+
+	List<AttachDto> listByMember(String memberId);
+
+	void deleteWithBoard(int boardNo);
+
 }

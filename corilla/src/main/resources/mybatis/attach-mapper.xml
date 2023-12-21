@@ -2,34 +2,50 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-    <mapper namespace="attach">
-    
-    	<select id="sequence" resultType="int">
-    		select attach_seq.nextval from dual
-    	</select>
-    
-    	<insert id="save">
-    		insert into attach(
-    			attach_no, attach_name, attach_size, attach_type
-    		) values(
-    			#{attachNo}, #{attachName}, #{attachSize}, #{attachType}
-    		)
-    	</insert>
-    	
-    	<select id="find" resultType="AttachDto">
-    		select * from attach where attach_no=#{attachNo}
-    	</select>
-    	
-    	<delete id="remove">
-    		delete attach where attach_no=#{attachNo}
-    	</delete>
-    	
-    	
-    	<select id="findImage" resultType="attachDto">
-    		select * from attach where attach_no=(select attach_no from board_image where board_no=#{boardNo})
-    	</select>
-    	
-    	
-    
-    </mapper>
+
+<mapper namespace="attach">
+
+	<select id="sequence" resultType="int">
+		select attach_seq.nextval from dual
+	</select>
+
+	<insert id="save">
+		insert into attach(
+		attach_no, attach_name, attach_size, attach_type
+		) values(
+		#{attachNo}, #{attachName}, #{attachSize}, #{attachType}
+		)
+	</insert>
+
+	<select id="find" resultType="AttachDto">
+		select * from attach where attach_no=#{attachNo}
+	</select>
+
+	<delete id="remove">
+		delete attach where attach_no=#{attachNo}
+	</delete>
+
+
+	<select id="findImage" resultType="attachDto">
+		select * from attach where attach_no=(select attach_no from board_image
+		where board_no=#{boardNo})
+	</select>
+
+	<delete id="delete">
+		delete from attach where attach_no=#{attachNo}
+	</delete>
+
+
+	<select id="listByMember" resultType="AttachDto">
+		select * from attach where attach_no in (select ATTACH_NO from BOARD_IMAGE
+		where board_no in (select board_no from board where
+		board_writer=#{memberId}))
+	</select>
+	
+	<delete id="deleteWithBoard">
+	delete from attach where ATTACH_NO in (select ATTACH_NO  from BOARD_IMAGE where board_no=#{boardNo})
+	</delete>
+
+
+
+</mapper>

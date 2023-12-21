@@ -37,4 +37,29 @@
 		update board set board_like = board_like - 1 where
 		board_no=#{boardNo}
 	</update>
+	
+	
+	<select id="listByMember" resultType="BoardDto">
+		select * from board where board_writer=#{memberId} order by board_no desc
+	</select>
+	
+	<select id="selectOne" resultType="boardDto">
+		select * from board where board_no=#{boardNo}
+	</select>
+	
+	
+	<update id="update">
+		update board 
+		<set>
+		<if test="boardDto.boardContent != null">
+		board_content =#{boardDto.boardContent} , BOARD_UPDATE_TIME = sysdate 
+		</if>
+		</set>
+		where BOARD_NO =222
+	
+	</update>
+	
+	<delete id="deleteBoard">
+		delete from board where board_no=#{boardNo}
+	</delete>
 </mapper>

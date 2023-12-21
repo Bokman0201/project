@@ -4,13 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -72,7 +75,7 @@ public class BoardRestController {
 		
 		
 		//이미지 처리
-		log.debug("??={}",boardImageVO);
+		//log.debug("??={}",boardImageVO);
 		MultipartFile[] attaches  = boardImageVO.getAttach();
 		
 		if(attaches==null) return;
@@ -114,7 +117,7 @@ public class BoardRestController {
 		
 		BoarListWithImageVO boarListWithImageVO = BoarListWithImageVO.builder().boardDto(boardDto).attachVO(attachVO).build();
 		
-		log.debug("VO={}",boarListWithImageVO);
+		//log.debug("VO={}",boarListWithImageVO);
 		return boarListWithImageVO;
 	}
 	@PostMapping("/like")
@@ -165,5 +168,30 @@ public class BoardRestController {
 		
 		return boardImageDao.findImage(boardNo);
 	}	
+	
+	
+	@GetMapping("/boardList/{memberId}")
+	public List<BoardDto> listByMember(@PathVariable String memberId){
+		
+		return boardDao.listByMember(memberId);
+		
+	}
+	
+	@GetMapping("/detail/{boardNo}")
+	public BoardDto boardDetail(@PathVariable int boardNo) {
+		log.debug("boardNO{}",boardNo);
+		return boardDao.selectOne(boardNo);
+	}
 
+	@PutMapping("/update/{boardNo}")
+	public void updateBoard(@PathVariable int boardNo , @RequestBody BoardDto boardDto) {
+		boardDao.updateBoard(boardNo,boardDto);
+	}
+	
+	@DeleteMapping("/delete/{boardNo}")
+	public void deleteBoard(@PathVariable int boardNo) {
+		attachDao.deleteWithBoard(boardNo);
+		
+		boardDao.delete(boardNo);
+	}
 }

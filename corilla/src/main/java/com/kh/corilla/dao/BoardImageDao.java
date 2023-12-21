@@ -11,4 +11,6 @@ public interface BoardImageDao {
 
 	List<AttachDto> findImage(int boardNo);
 
+	List<BoardImageDto> listByMember(String memberId);
+
 }

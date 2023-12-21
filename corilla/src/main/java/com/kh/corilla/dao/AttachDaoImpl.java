@@ -31,17 +31,22 @@ public class AttachDaoImpl implements AttachDao{
 		return sqlSession.selectList("image.imageList");
 	}
 
-//	//이미지 다운로드
-//	@Override
-//	public AttachDto selectOne(int attachNo) {
-//		return sqlSession.selectOne("attach.find", attachNo);
-//	}
-//
-//	//이미지 삭제
-//	@Override
-//	public boolean delete(int attachNo) {
-//		return sqlSession.delete("attach.remove", attachNo) > 0;
-//	}
-	
+	@Override
+	public void delete(int attachNo) {
+		
+		sqlSession.delete("attach.delete",attachNo);
+		
+	}
+	@Override
+	public List<AttachDto> listByMember(String memberId) {
+		return sqlSession.selectList("attach.listByMember",memberId);
+	}
+
+	@Override
+	public void deleteWithBoard(int boardNo) {
+		sqlSession.delete("attach.deleteWithBoard",boardNo);
+	}
+
+
 
 }

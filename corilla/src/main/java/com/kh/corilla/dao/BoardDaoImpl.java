@@ -43,4 +43,25 @@ public class BoardDaoImpl implements BoardDao {
 		
 
 	}
+	@Override
+	public List<BoardDto> listByMember(String memberId) {
+		
+		return sqlSession.selectList("board.listByMember",memberId);
+	}
+	
+	@Override
+	public BoardDto selectOne(int boardNo) {
+		return sqlSession.selectOne("board.selectOne", boardNo);
+	}
+	
+	@Override
+	public void updateBoard(int boardNo, BoardDto boardDto) {
+		Map<String, Object> params = Map.of("boardDto", boardDto, "boardNo", boardNo);
+				
+		sqlSession.update("board.update",params);
+	}
+	@Override
+	public void delete(int boardNo) {
+		sqlSession.delete("board.deleteBoard",boardNo);
+	}
 }

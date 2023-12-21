@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="follow">
+    <insert id="addFollow">
+    insert into follow(my_id, follow_id) values(#{myId},#{followId})
+    </insert>
+    
+    <select id="find" resultType="followDto"> 
+    	select * from follow where my_id=#{myId}
+    	
+    </select>
+    
+    <select id="followingList" resultType="followDto">
+	select * from follow where my_id=#{myId}
+    </select>
+    
+    <select id="followerList" resultType="followDto">
+    select * from follow where FOLLOW_ID in #{followId}
+    
+    </select>
+    
+    <delete id="deleteFollow">
+    delete from follow where my_id = #{myId} and FOLLOW_ID =#{followId}
+    
+    </delete>
+
+    
+    
+    </mapper>

@@ -4,19 +4,47 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 	<insert id="join">
-		insert into member(member_id, member_pw, member_email, member_name)
+		insert into member(member_id, member_pw,
+		member_email, member_name)
 		values(#{memberId},#{memberPw},#{memberEmail},#{memberName})
 	</insert>
 
 	<select id="find" resultType="memberDto">
-		select * from member where member_id=#{memberId}
+		select * from member where
+		member_id=#{memberId}
 	</select>
 
-	<select id="findForMypage">
-		select * from member m
-		inner join BOARD b on b.BOARD_WRITER = m.MEMBER_ID
-		inner join BOARD_IMAGE bi on b.BOARD_NO = bi.BOARD_NO
-		inner join ATTACH a on bi.ATTACH_NO = a.ATTACH_NO
-		where member_id=#{memberId}
+	<select id="">
+		select
+		m.member_id,
+		m.member_nick,
+		m.member_name,
+		b.*,
+		mi.*,
+		mp.*,
+		a.*
+		from member m
+		inner join BOARD b on m.MEMBER_ID =
+		b.BOARD_WRITER
+		inner join MEMBER_PROFILE mp on m.MEMBER_ID =
+		mp.MEMBER_ID
+		inner join MEMBER_IMAGE mi on mp.PROFILE_NO =mi.PROFILE_NO
+		inner join ATTACH a on a.ATTACH_NO =mi.ATTACH_NO
+
 	</select>
+
+	<select id="search" resultType="memberDto">
+		SELECT *
+		FROM member 
+		<where>
+			<if test="memberId != null">
+				AND member_id = #{memberId}
+			</if>
+			<if test="memberNick != null">
+				AND member_nick = #{memberNick}
+			</if>
+		</where>
+	</select>
+
+
 </mapper>

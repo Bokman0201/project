@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="profile">
+	<select id="sequence" resultType="int">
+		select profile_seq.nextval from
+		dual
+	</select>
+
+	<insert id="add">
+		insert into member_profile(profile_no, MEMBER_ID,
+		profile_content)
+		values(#{profileNo},#{memberId}, #{profileContent})
+	</insert>
+
+	<insert id="connect">
+		insert into MEMBER_IMAGE(attach_no,profile_no)
+		values(#{attachNo},#{profileNo})
+	</insert>
+
+
+	<select id="find" resultType="AttachDto">
+		select * from attach where
+		attach_no = (select ATTACH_NO from MEMBER_IMAGE where profile_no =
+		(select profile_no from MEMBER_PROFILE where member_id=#{memberId}))
+	</select>
+
+	<update id="update">
+		update member_profile 
+		
+		<set>
+		
+		<if test="memberProfileDto.profileContent != null">
+			profile_content = #{memberProfileDto.profileContent},
+		</if>
+		
+		<if test="memberProfileDto.memberGender != null">
+			member_gender = #{memberProfileDto.memberGender},
+		</if>
+		<if test="memberProfileDto.privateStatus != null">
+			private_status = #{memberProfileDto.privateStatus},
+		</if>
+		</set>
+		where member_id = #{memberId}
+	</update>
+	
+	
+	<select id="selectOne" resultType="MemberProfileDto">
+		select * from MEMBER_PROFILE  where member_id=#{memberId}
+	</select>
+	
+	<select id=""></select>
+</mapper>
